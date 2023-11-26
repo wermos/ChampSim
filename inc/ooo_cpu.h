@@ -43,6 +43,8 @@
 
 enum STATUS { INFLIGHT = 1, COMPLETED = 2 };
 
+static double current_ipc = 0; // global variable for storing the IPC
+
 class CACHE;
 class CacheBus
 {
