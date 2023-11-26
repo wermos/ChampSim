@@ -105,6 +105,12 @@ public:
   uint64_t last_heartbeat_instr = 0;
   uint64_t next_print_instruction = STAT_PRINTING_PERIOD;
 
+  // MAB stuff
+  uint64_t MAB_IPC_UPDATE_FREQUENCY = 150;
+  uint64_t last_mab_ipc_cycle = 0;
+  uint64_t last_mab_ipc_instr = 0;
+  uint64_t next_mab_ipc_update_instr = MAB_IPC_UPDATE_FREQUENCY;
+
   // instruction
   uint64_t num_retired = 0;
 

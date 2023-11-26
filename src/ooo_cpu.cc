@@ -32,6 +32,8 @@
 
 std::chrono::seconds elapsed_time();
 
+double current_ipc = 0; // global variable for storing the IPC
+
 long O3_CPU::operate()
 {
   long progress{0};
@@ -51,6 +53,22 @@ long O3_CPU::operate()
   progress += check_dib();
   initialize_instruction();
 
+  // MAB IPC
+  if (num_retired >= next_mab_ipc_update_instr) {
+    // update the MAB IPC reward
+
+    auto mab_ipc_instr{std::ceil(num_retired - last_mab_ipc_instr)};
+    auto mab_ipc_cycle{std::ceil(current_cycle - last_mab_ipc_cycle)};
+
+    ::current_ipc = mab_ipc_instr / mab_ipc_cycle;
+
+    next_mab_ipc_update_instr += MAB_IPC_UPDATE_FREQUENCY;
+
+    last_mab_ipc_instr = num_retired;
+    last_mab_ipc_cycle = current_cycle;
+  }
+
+
   // heartbeat
   if (show_heartbeat && (num_retired >= next_print_instruction)) {
     auto heartbeat_instr{std::ceil(num_retired - last_heartbeat_instr)};
@@ -62,6 +80,8 @@ long O3_CPU::operate()
     fmt::print("Heartbeat CPU {} instructions: {} cycles: {} heartbeat IPC: {:.4g} cumulative IPC: {:.4g} (Simulation time: {:%H hr %M min %S sec})\n", cpu,
                num_retired, current_cycle, heartbeat_instr / heartbeat_cycle, phase_instr / phase_cycle, elapsed_time());
     next_print_instruction += STAT_PRINTING_PERIOD;
+
+
 
     last_heartbeat_instr = num_retired;
     last_heartbeat_cycle = current_cycle;
