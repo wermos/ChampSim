@@ -32,6 +32,8 @@
 
 std::chrono::seconds elapsed_time();
 
+double current_ipc = 0; // global variable for storing the IPC
+
 long O3_CPU::operate()
 {
   long progress{0};
