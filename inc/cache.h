@@ -124,20 +124,6 @@ class CACHE : public champsim::operable
 
   void issue_translation();
 
-  struct BLOCK {
-    bool valid = false;
-    bool prefetch = false;
-    bool dirty = false;
-
-    uint64_t address = 0;
-    uint64_t v_address = 0;
-    uint64_t data = 0;
-
-    uint32_t pf_metadata = 0;
-
-    BLOCK() = default;
-    explicit BLOCK(mshr_type mshr);
-  };
   using set_type = std::vector<BLOCK>;
 
   std::pair<set_type::iterator, set_type::iterator> get_set_span(uint64_t address);
@@ -155,6 +141,21 @@ class CACHE : public champsim::operable
   std::deque<tag_lookup_type> translation_stash{};
 
 public:
+  struct BLOCK {
+      bool valid = false;
+      bool prefetch = false;
+      bool dirty = false;
+
+      uint64_t address = 0;
+      uint64_t v_address = 0;
+      uint64_t data = 0;
+
+      uint32_t pf_metadata = 0;
+
+      BLOCK() = default;
+      explicit BLOCK(mshr_type mshr);
+    };
+  
   std::vector<channel_type*> upper_levels;
   channel_type* lower_level;
   channel_type* lower_translate;
