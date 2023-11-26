@@ -124,6 +124,7 @@ class CACHE : public champsim::operable
 
   void issue_translation();
 
+public:
   struct BLOCK {
     bool valid = false;
     bool prefetch = false;
@@ -139,7 +140,6 @@ class CACHE : public champsim::operable
     explicit BLOCK(mshr_type mshr);
   };
 
-public:
   using set_type = std::vector<BLOCK>;
 
   std::pair<set_type::iterator, set_type::iterator> get_set_span(uint64_t address);
