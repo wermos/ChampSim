@@ -45,7 +45,7 @@ enum STATUS { INFLIGHT = 1, COMPLETED = 2 };
 
 extern double current_ipc;
 
-static constexpr std::uint64_t MAB_IPC_UPDATE_PERIOD = 50;
+static constexpr std::uint64_t MAB_IPC_UPDATE_PERIOD = 200;
 
 class CACHE;
 class CacheBus
