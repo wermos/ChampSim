@@ -62,7 +62,7 @@ long O3_CPU::operate()
 
     ::current_ipc = mab_ipc_instr / mab_ipc_cycle;
 
-    next_mab_ipc_update_instr += MAB_IPC_UPDATE_FREQUENCY;
+    next_mab_ipc_update_instr += MAB_IPC_UPDATE_PERIOD;
 
     last_mab_ipc_instr = num_retired;
     last_mab_ipc_cycle = current_cycle;
