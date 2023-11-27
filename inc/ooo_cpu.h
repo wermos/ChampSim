@@ -45,6 +45,8 @@ enum STATUS { INFLIGHT = 1, COMPLETED = 2 };
 
 extern double current_ipc;
 
+static constexpr std::uint64_t MAB_IPC_UPDATE_PERIOD = 50;
+
 class CACHE;
 class CacheBus
 {
@@ -108,10 +110,9 @@ public:
   uint64_t next_print_instruction = STAT_PRINTING_PERIOD;
 
   // MAB stuff
-  uint64_t MAB_IPC_UPDATE_FREQUENCY = 150;
   uint64_t last_mab_ipc_cycle = 0;
   uint64_t last_mab_ipc_instr = 0;
-  uint64_t next_mab_ipc_update_instr = MAB_IPC_UPDATE_FREQUENCY;
+  uint64_t next_mab_ipc_update_instr = MAB_IPC_UPDATE_PERIOD;
 
   // instruction
   uint64_t num_retired = 0;
